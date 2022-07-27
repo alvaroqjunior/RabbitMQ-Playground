@@ -14,7 +14,9 @@ namespace Demo2Library
             ConnectionFactory connectionFactory = new ConnectionFactory()
             {
                 HostName = "localhost",
-                Port = 5672,
+                Port = 9009,
+                UserName = "_metris.servicebus",
+                Password = "Q7XbWzqza4hEeg6A"
             };
 
             using (var connection = connectionFactory.CreateConnection())
@@ -77,15 +79,22 @@ namespace Demo2Library
                     model.BasicConsume(queue: "worker2",
                                          autoAck: false,
                                          consumer: consumer2);
+
+
+
                     model.BasicPublish("calculation_engine", "*", prop, bytes);
 
+                    while (true)
+                    {
+
+                    }
+
                 }
+
+      
             }
 
-            while (true)
-            {
-
-            }
+      
             //Console.WriteLine("Hello World!");
         }
     }
